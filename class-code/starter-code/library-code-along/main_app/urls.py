@@ -4,6 +4,7 @@ from . import views
 
 urlpatterns = [
 
+    # FBV:
     # path("authors/", views.author_list, name="author_list"),
     # path("authors/new/", views.author_create, name="author_create"),
     # path("authors/<int:pk>/", views.author_detail, name="author_detail"),
