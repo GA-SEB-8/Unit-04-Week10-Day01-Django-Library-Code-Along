@@ -1,0 +1,17 @@
+<!doctype html>
+<html>
+  <head><meta charset="utf-8"><title>Authors</title></head>
+  <body>
+    {% if messages %}
+      <ul>
+        {% for m in messages %}<li>{{ m }}</li>{% endfor %}
+      </ul>
+    {% endif %}
+    <nav>
+      <a href="{% url 'author_list' %}">Authors</a> |
+      <a href="{% url 'author_create' %}">New Author</a>
+    </nav>
+    <hr>
+    {% block content %}{% endblock %}
+  </body>
+</html>
