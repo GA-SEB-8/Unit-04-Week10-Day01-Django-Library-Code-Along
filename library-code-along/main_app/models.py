@@ -1,0 +1,14 @@
+from django.db import models
+
+# Create your models here.
+
+class Author(models.Model):
+    first_name = models.CharField(max_length=80)
+    last_name = models.CharField(max_length=80)
+    is_best_seller = models.BooleanField(default=False)
+
+    class Meta:
+        db_table = "authors"
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"
