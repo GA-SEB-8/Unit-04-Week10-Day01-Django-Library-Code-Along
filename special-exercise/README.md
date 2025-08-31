@@ -12,8 +12,11 @@
 7. Add the urls.py from your main_app to your library_project
 8. Configure your postgres database in the settings.py
 9. Create a model for Author with the following fields:
-    a. First_name: charField(80)
+
+    a.First_name: charField(80)
+
     b. last_name: charField(80)
+    
     c. Is_best_seller: booleanField
 10. Register the model in the admin panel
 11. Create the routes, views, and templates for full crud on the author model
