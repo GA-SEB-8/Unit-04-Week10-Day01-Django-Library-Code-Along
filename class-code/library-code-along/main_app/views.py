@@ -45,8 +45,8 @@ def author_delete(request, pk):
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
-from .models import Author
-from .forms import AuthorForm
+from .models import Author, Book
+from .forms import AuthorForm, BookForm
 
 
 class AuthorListView(ListView):
@@ -85,3 +85,12 @@ class AuthorDeleteView(DeleteView):
     template_name = "authors/author_confirm_delete.html"
     success_url = reverse_lazy("author_list")
 
+
+
+
+
+# Books Views
+class BookCreateView(CreateView):
+    model = Book
+    template_name = 'books/book-form.html'
+    form_class = BookForm

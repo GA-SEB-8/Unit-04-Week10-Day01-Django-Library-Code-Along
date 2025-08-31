@@ -5,6 +5,7 @@
 <p>
   <a href="{% url 'author_update' author.pk %}">Edit</a> |
   <form method='post' action="{% url 'author_delete' author.pk %}">
+    {% csrf_token %}
     <button>Delete</button>
   </form>
 </p>

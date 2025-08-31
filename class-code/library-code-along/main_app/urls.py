@@ -20,4 +20,11 @@ urlpatterns = [
     path("authors/<int:pk>/delete/", views.AuthorDeleteView.as_view(), name="author_delete"),
 
 
+    path("books/new",views.BookCreateView.as_view(), name='book_create')
+
+
+# 1. create the view function or class
+# 2. add the view in the urls.py
+# 3. create the html file in the templates folder
+
 ]
