@@ -8,5 +8,11 @@
     {% csrf_token %}
     <button>Delete</button>
   </form>
+
+  <h2>All Books Written</h2>
+  {% for book in books %}
+  <a href="{% url 'book_detail' book.id%}">See Book Details</a>
+    <p>{{book.title}}</p>
+  {% endfor %}
 </p>
 {% endblock %}

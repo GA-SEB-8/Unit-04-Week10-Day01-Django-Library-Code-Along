@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import AbstractUser
 # Create your models here.
 
 class Author(models.Model):
@@ -19,7 +19,7 @@ class Book(models.Model):
     published_year = models.PositiveIntegerField(null=True)
     in_print = models.BooleanField(default=True)
 
-    author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name='books_written')
+    author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name='books')
     # Author.objects.books_written()
 
     class Meta:
@@ -27,3 +27,11 @@ class Book(models.Model):
     
     def __str__(self):
         return self.title
+    
+
+# class User(AbstractUser):
+
+#     role = models.CharField(max_length=20)
+    
+#     class Meta:
+#         db_table = "users"

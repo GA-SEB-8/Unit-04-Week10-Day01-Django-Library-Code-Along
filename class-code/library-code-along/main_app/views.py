@@ -1,14 +1,19 @@
 from django.shortcuts import render, redirect
 from .models import Author
 from .forms import AuthorForm
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+
 
 def author_list(request):
     authors = Author.objects.all()
+    print(authors)
     return render(request, "authors/author_list.html", {"authors": authors})
 
 def author_detail(request, pk):
     author = Author.objects.get(pk=pk)
-    return render(request, "authors/author_detail.html", {"author": author})
+    books = author.books.all()
+    print(author.books.all())
+    return render(request, "authors/author_detail.html", {"author": author, 'books':books})
 
 def author_create(request):
     if request.method == "POST":
@@ -61,6 +66,13 @@ class AuthorDetailView(DetailView):
     context_object_name = "author"
 
 
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        # ctx['books'] = Book.objects.filter(author)
+
+        return 
+
+
 class AuthorCreateView(CreateView):
     model = Author
     form_class = AuthorForm
@@ -90,23 +102,31 @@ class AuthorDeleteView(DeleteView):
 
 
 # Books Views
-class BookCreateView(CreateView):
+class BookCreateView(LoginRequiredMixin,CreateView):
     model = Book
     template_name = 'books/book-form.html'
     form_class = BookForm
-    success_url = reverse_lazy("book_list")
+    # success_url = reverse_lazy("book_list")
+
+    def get_success_url(self):
+        return reverse('book_detail',kwargs={'book_id':self.object.pk})
 
 class BookListView(ListView):
     model = Book
     template_name = 'books/book_list.html'
     context_object_name = 'books'
 
-class BookUpdateView(UpdateView):
+
+class BookUpdateView(UserPassesTestMixin,UpdateView):
     model = Book
     template_name = 'books/book-form.html'
     form_class = BookForm
     success_url = "/books/"
     pk_url_kwarg = 'book_id' #change the dynamic url in the urls.py
+
+    def test_func(self):
+        return self.request.user.role == "Admin" or "superuser"
+
 
 class BookDetailView(DetailView):
     model = Book
@@ -119,4 +139,50 @@ class BookDeleteView(DeleteView):
     model = Book
     success_url = "/books/"
 
+    
+
+
+from django.contrib.auth.decorators import login_required
+# FBV Books:
+def book_list(request):
+    books = Book.objects.all()
+    return render(request, "books/book_list.html", {"books": books})
+
+
+def book_detail(request, pk):
+    book = Book.objects.get(pk=pk)
+    return render(request, "books/book_detail.html", {"book": book})
+
+
+
+@login_required
+def book_create(request):
+    if request.method == "POST":
+        form = BookForm(request.POST, request.FILES)
+        if form.is_valid():
+            book = form.save()
+            return redirect(reverse("book_detail", kwargs={"pk": book.pk}))
+    else:
+        form = BookForm()
+    return render(request, "books/book_form.html", {"form": form})
+
+
+
+
+
+
+# Auth steps:
+# 1: add the path in the urls.py of your project
+# 2: add the redirects to your settings.py
+# 3: in the base.html lets change the navbar if we are logged in
+
+
+from django.contrib.auth.models import User # this is the user model we use to log in
+from django.contrib.auth.forms import UserCreationForm
+
+class SignUpView(CreateView):
+    model = User
+    form_class = UserCreationForm
+    success_url = reverse_lazy("login")
+    template_name = 'registration/sign-up.html'
     

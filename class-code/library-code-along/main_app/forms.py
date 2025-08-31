@@ -11,3 +11,4 @@ class BookForm(forms.ModelForm):
     class Meta:
         model = Book
         fields = ['title','published_year','in_print','author']
+
