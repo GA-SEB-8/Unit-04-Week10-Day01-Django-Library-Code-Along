@@ -41,7 +41,7 @@ def author_delete(request, pk):
 
 
 
-# authors/views.py
+# CBV:
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
