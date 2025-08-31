@@ -106,8 +106,10 @@ class BookUpdateView(UpdateView):
     template_name = 'books/book-form.html'
     form_class = BookForm
     success_url = "/books/"
+    pk_url_kwarg = 'book_id' #change the dynamic url in the urls.py
 
 class BookDetailView(DetailView):
     model = Book
     template_name = 'books/book_detail.html'
     context_object_name = 'book'
+    pk_url_kwarg = 'book_id' #change the dynamic url in the urls.py
