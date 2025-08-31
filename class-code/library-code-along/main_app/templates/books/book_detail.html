@@ -6,4 +6,10 @@
 
 <h2>Title: {{book.title}}</h2>
 <p>published: {{book.published_year}}</p>
+
+<form action="/books/{{book.id}}/delete/" method='post'>
+    {% csrf_token %}
+    <button>Delete Book</button>
+</form>
 {% endblock  %}
+

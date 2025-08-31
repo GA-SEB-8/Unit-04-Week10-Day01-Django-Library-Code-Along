@@ -2,7 +2,7 @@
 
 {% block content %}
 {% for book in books %}
-    <a href="/books/id">{{book.title}}</a>
+    <a href="/books/{{book.id}}">{{book.title}}</a>
     <br>
 {% endfor %}
 {% endblock  %}

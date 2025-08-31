@@ -113,3 +113,8 @@ class BookDetailView(DetailView):
     template_name = 'books/book_detail.html'
     context_object_name = 'book'
     pk_url_kwarg = 'book_id' #change the dynamic url in the urls.py
+
+
+class BookDeleteView(DeleteView):
+    model = Book
+    success_url = "/books/"
