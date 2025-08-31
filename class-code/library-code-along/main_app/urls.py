@@ -19,7 +19,7 @@ urlpatterns = [
     path("authors/<int:pk>/edit/", views.AuthorUpdateView.as_view(), name="author_update"),
     path("authors/<int:pk>/delete/", views.AuthorDeleteView.as_view(), name="author_delete"),
 
-
+    # Book CBV:
     path("books/new/",views.BookCreateView.as_view(), name='book_create'),
     path("books/",views.BookListView.as_view(), name='book_list'),
     path("books/<int:book_id>/update/",views.BookUpdateView.as_view(), name='book_create'),

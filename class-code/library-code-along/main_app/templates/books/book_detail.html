@@ -1,15 +1,15 @@
 {% extends "base.html" %}
 
-{% block content %}
+    {% block content %}
 
-<h1>Book Details</h1>
+        <h1>Book Details</h1>
 
-<h2>Title: {{book.title}}</h2>
-<p>published: {{book.published_year}}</p>
+        <h2>Title: {{book.title}}</h2>
+        <p>published: {{book.published_year}}</p>
 
-<form action="/books/{{book.id}}/delete/" method='post'>
-    {% csrf_token %}
-    <button>Delete Book</button>
-</form>
-{% endblock  %}
+        <form action="{% url 'book_delete' book.id%}" method='post'>
+            {% csrf_token %}
+            <button>Delete Book</button>
+        </form>
+    {% endblock  %}
 

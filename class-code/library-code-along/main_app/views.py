@@ -44,7 +44,7 @@ def author_delete(request, pk):
 # CBV:
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-
+from django.views import View
 from .models import Author, Book
 from .forms import AuthorForm, BookForm
 
@@ -94,7 +94,7 @@ class BookCreateView(CreateView):
     model = Book
     template_name = 'books/book-form.html'
     form_class = BookForm
-    success_url = "/books/"
+    success_url = reverse_lazy("book_list")
 
 class BookListView(ListView):
     model = Book
@@ -118,3 +118,5 @@ class BookDetailView(DetailView):
 class BookDeleteView(DeleteView):
     model = Book
     success_url = "/books/"
+
+    
