@@ -94,3 +94,9 @@ class BookCreateView(CreateView):
     model = Book
     template_name = 'books/book-form.html'
     form_class = BookForm
+    success_url = "/books/"
+
+class BookListView(ListView):
+    model = Book
+    template_name = 'books/book_list.html'
+    context_object_name = 'books'
